@@ -1,0 +1,942 @@
+
+                        <!DOCTYPE html>
+                        <html lang="en">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <style>
+                body {
+                  background-color: white; /* Ensure the iframe has a white background */
+                }
+
+                
+              </style>
+                        </head>
+                        <body>
+                            <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diferentes – Cafetería & Heladería</title>
+  <!-- Fuente principal: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Fuente del título: Amatic SC -->
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #B8A96D;
+      --surface: #FDFCF7;
+      --text: #2C281A;
+      --text-light: #5D5538;
+      --text-on-bg: #FFFFFF;
+      --accent: #E8E0C9;
+      --accent-dark: #D9D0B5;
+      --border: #D4CBAE;
+      --danger: #D97A7A;
+      --success: #4CAF50;
+      --shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    header {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 38px;
+      color: var(--text-on-bg);
+      font-family: 'Amatic SC', cursive;
+      letter-spacing: 1px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .tabs {
+      display: flex;
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px var(--shadow);
+      margin-bottom: 24px;
+      border: 1px solid var(--border);
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 14px;
+      background: var(--surface);
+      border: none;
+      font-weight: 500;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: var(--text);
+    }
+
+    .section {
+      background: var(--surface);
+      padding: 20px;
+      border-radius: 14px;
+      margin-bottom: 20px;
+      box-shadow: 0 3px 12px var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 8px;
+      font-weight: 500;
+      font-size: 15px;
+      color: var(--text);
+    }
+
+    select, input, button, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: white;
+      font-size: 16px;
+      margin-bottom: 14px;
+      color: var(--text);
+    }
+
+    select:focus, input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent-dark);
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--text);
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dark);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: #f5f3ec;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-group button {
+      margin-bottom: 0;
+      flex: 1;
+    }
+
+    #carrito-lista {
+      margin-top: 12px;
+    }
+
+    .carrito-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .carrito-item:last-child {
+      border-bottom: none;
+    }
+
+    .carrito-item-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-eliminar {
+      background: var(--danger);
+      color: white;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    #total {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 16px;
+      color: var(--accent-dark);
+    }
+
+    #ticket, #admin-content {
+      background: var(--surface);
+      padding: 20px;
+      border-radius: 14px;
+      margin-top: 20px;
+      box-shadow: 0 3px 12px var(--shadow);
+      white-space: pre-wrap;
+      font-family: monospace;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .ticket-header {
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: var(--accent-dark);
+    }
+
+    .actions-ticket {
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .actions-ticket button {
+      margin-bottom: 0;
+      flex: 1;
+    }
+
+    .producto-edit {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+      align-items: center;
+    }
+
+    .producto-edit input {
+      margin-bottom: 0;
+      width: 120px;
+    }
+
+    .producto-edit span {
+      flex: 1;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: 13px;
+      color: var(--text-on-bg);
+    }
+
+    .admin-options {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .admin-options button {
+      margin-bottom: 8px;
+      flex: 1;
+      min-width: 120px;
+    }
+
+    .password-container {
+      position: relative;
+    }
+
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: var(--text-light);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Diferentes</h1>
+    <p style="color: var(--text-on-bg);">Cafetería & Heladería</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="cambiarPestana('pedido')">Nuevo Pedido</button>
+    <button class="tab-btn" onclick="cambiarPestana('admin')">Admin</button>
+  </div>
+
+  <!-- NUEVO PEDIDO -->
+  <div id="pedido" class="tab-content">
+    <div class="section">
+      <label for="categoria">Categoría</label>
+      <select id="categoria" onchange="cargarProductos()">
+        <option value="">— Selecciona —</option>
+        <option value="helados">Helados</option>
+        <option value="cafeteria">Cafetería</option>
+      </select>
+
+      <div id="productos-container" class="hidden">
+        <label for="producto">Producto</label>
+        <select id="producto"></select>
+
+        <label for="cantidad">Cantidad</label>
+        <input type="number" id="cantidad" min="1" value="1">
+
+        <button class="btn-primary" onclick="agregarAlCarrito()">Agregar al pedido</button>
+      </div>
+
+      <div id="carrito-lista"></div>
+      <div id="total"></div>
+
+      <div id="pago-section" class="hidden">
+        <label>Método de pago</label>
+        <div class="btn-group">
+          <button class="btn-primary" onclick="finalizarPedido('Efectivo')">Efectivo</button>
+          <button class="btn-primary" onclick="finalizarPedido('Transferencia')">Transferencia</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="ticket" class="hidden">
+      <div class="ticket-header">✅ TICKET VALIDADO</div>
+      <div id="ticket-texto"></div>
+      <div class="actions-ticket">
+        <button class="btn-secondary" onclick="copiarTicket()">Copiar</button>
+        <button class="btn-primary" onclick="window.print()">Imprimir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="admin" class="tab-content hidden">
+    <div class="section">
+      <label for="admin-pass">🔒 Contraseña de administrador</label>
+      <div class="password-container">
+        <input type="password" id="admin-pass" placeholder="Ingresa la contraseña">
+        <button type="button" class="toggle-password" onclick="togglePasswordVisibility()">👁️</button>
+      </div>
+      <button class="btn-primary" onclick="accederAdmin()">Acceder</button>
+
+      <div id="admin-content" class="hidden">
+        <div class="admin-options">
+          <button class="btn-primary" onclick="mostrarSeccion('precios')">Editar precios</button>
+          <button class="btn-primary" onclick="mostrarSeccion('resumen')">Ver resumen</button>
+          <button class="btn-primary" onclick="mostrarSeccion('gestion')">Gestionar productos</button>
+          <button class="btn-primary" onclick="mostrarSeccion('gastos')">Registrar gasto</button>
+        </div>
+
+        <div id="seccion-precios" class="hidden">
+          <h3>Editar precios</h3>
+          <p style="margin-bottom:16px; color:var(--text-light);">Modifica los precios y guarda los cambios.</p>
+          <div id="lista-productos-edit"></div>
+          <button class="btn-primary" onclick="guardarPrecios()" style="margin-top:10px;">Guardar cambios</button>
+        </div>
+
+        <div id="seccion-resumen" class="hidden">
+          <h3>Resumen de ventas y gastos</h3>
+          <div class="btn-group" style="margin: 12px 0;">
+            <button class="btn-secondary" onclick="mostrarResumen('hoy')">Hoy</button>
+            <button class="btn-secondary" onclick="mostrarResumen('semana')">Semana</button>
+            <button class="btn-secondary" onclick="mostrarResumen('mes')">Mes</button>
+          </div>
+          <div id="resumen-content"></div>
+        </div>
+
+        <div id="seccion-gestion" class="hidden">
+          <div id="seccion-gestion-contenido"></div>
+        </div>
+
+        <div id="seccion-gastos" class="hidden">
+          <div id="seccion-gastos-contenido"></div>
+        </div>
+
+        <button class="btn-secondary" onclick="salirAdmin()" style="margin-top:20px; width: 100%;">Salir</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    App Diferentes • Datos guardados localmente
+  </footer>
+
+  <script>
+    const ADMIN_PASSWORD = "helado123";
+
+    let productos = JSON.parse(localStorage.getItem('productos-diferentes')) || {
+      helados: [
+        { nombre: "1 bocha", precio: 2000 },
+        { nombre: "2 bochas", precio: 3000 },
+        { nombre: "3 bochas", precio: 4500 },
+        { nombre: "4 bochas", precio: 5500 },
+        { nombre: "Capelina", precio: 6000 },
+        { nombre: "Copa helada", precio: 5500 },
+        { nombre: "Batido", precio: 5000 },
+        { nombre: "Capuccino H", precio: 4500 }
+      ],
+      cafeteria: [
+        { nombre: "Expresso", precio: 2200 },
+        { nombre: "Americano", precio: 2500 },
+        { nombre: "Cafe c/ leche", precio: 3000 },
+        { nombre: "Cafe c/ leche XXL", precio: 3000 },
+        { nombre: "Cortado", precio: 3000 },
+        { nombre: "Lagrima", precio: 3000 },
+        { nombre: "Latte vainilla", precio: 3000 },
+        { nombre: "Capuccino", precio: 3800 },
+        { nombre: "Caramel M.", precio: 3800 },
+        { nombre: "Moka", precio: 3800 },
+        { nombre: "Afogato", precio: 4800 },
+        { nombre: "Frapucino", precio: 3800 },
+        { nombre: "Frap. Caramelo", precio: 4500 },
+        { nombre: "Frap. Dulce de leche", precio: 4500 },
+        { nombre: "Capuccino helado", precio: 6000 },
+        { nombre: "Té", precio: 1500 },
+        { nombre: "Té helado", precio: 2000 },
+        { nombre: "Submarino", precio: 3800 },
+        { nombre: "Chocolatada", precio: 3000 },
+        { nombre: "Smoothie", precio: 5000 },
+        { nombre: "Jugo naranja", precio: 4000 },
+        { nombre: "Limonada menta", precio: 3000 },
+        { nombre: "Limonada frutos rojos", precio: 4000 },
+        { nombre: "Clasico", precio: 5000 },
+        { nombre: "Completo", precio: 7500 },
+        { nombre: "Diferentes", precio: 8000 }, // ← ¡Nombre cambiado!
+        { nombre: "Premium", precio: 22000 },
+        { nombre: "Vital", precio: 16000 },
+        { nombre: "Fresco", precio: 15000 },
+        { nombre: "Medialunas", precio: 1200 },
+        { nombre: "Medialunas jyq", precio: 2500 },
+        { nombre: "Alfajores", precio: 2800 },
+        { nombre: "Alfajores de maicena", precio: 2500 },
+        { nombre: "Cookis", precio: 2500 },
+        { nombre: "Budin", precio: 1200 },
+        { nombre: "Tarta", precio: 4500 },
+        { nombre: "Brownie", precio: 3000 },
+        { nombre: "Brownie c/ helado", precio: 6000 },
+        { nombre: "Tostado de campo", precio: 3000 },
+        { nombre: "Tostado x2", precio: 4000 },
+        { nombre: "Tostado x4", precio: 7500 },
+        { nombre: "Toston", precio: 6000 },
+        { nombre: "Raspadita jyq", precio: 2000 }
+      ]
+    };
+
+    let carrito = [];
+    let ventas = JSON.parse(localStorage.getItem('ventas-diferentes')) || [];
+    let gastos = JSON.parse(localStorage.getItem('gastos-diferentes')) || [];
+
+    function cargarProductos() {
+      const cat = document.getElementById('categoria').value;
+      const cont = document.getElementById('productos-container');
+      const sel = document.getElementById('producto');
+      sel.innerHTML = '';
+      if (cat) {
+        productos[cat].forEach((p, i) => {
+          const opt = document.createElement('option');
+          opt.value = i;
+          opt.textContent = `${p.nombre} – $${p.precio}`;
+          sel.appendChild(opt);
+        });
+        cont.classList.remove('hidden');
+      } else {
+        cont.classList.add('hidden');
+      }
+    }
+
+    function agregarAlCarrito() {
+      const cat = document.getElementById('categoria').value;
+      const idx = document.getElementById('producto').value;
+      const qty = parseInt(document.getElementById('cantidad').value) || 1;
+      if (!cat || idx === '') return;
+
+      const prod = productos[cat][idx];
+      carrito.push({ ...prod, cantidad: qty, tipo: cat });
+      renderCarrito();
+      document.getElementById('pago-section').classList.remove('hidden');
+    }
+
+    function eliminarDelCarrito(index) {
+      carrito.splice(index, 1);
+      renderCarrito();
+      if (carrito.length === 0) {
+        document.getElementById('pago-section').classList.add('hidden');
+      }
+    }
+
+    function renderCarrito() {
+      const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+      if (carrito.length === 0) {
+        document.getElementById('carrito-lista').innerHTML = '';
+        document.getElementById('total').textContent = '';
+        return;
+      }
+
+      let html = '<div class="carrito-titulo"><strong>Carrito</strong></div>';
+      carrito.forEach((item, i) => {
+        html += `
+          <div class="carrito-item">
+            <span>${item.cantidad}x ${item.nombre}</span>
+            <div class="carrito-item-actions">
+              <span>$${item.precio * item.cantidad}</span>
+              <button class="btn-eliminar" onclick="eliminarDelCarrito(${i})">×</button>
+            </div>
+          </div>
+        `;
+      });
+      document.getElementById('carrito-lista').innerHTML = html;
+      document.getElementById('total').textContent = `Total: $${total}`;
+    }
+
+    function generarCodigo() {
+      const ahora = new Date();
+      const id = ventas.length + 1;
+      const fechaStr = ahora.toISOString().slice(0, 10).replace(/-/g, '');
+      return `DF-${fechaStr}-${String(id).padStart(4, '0')}`;
+    }
+
+    function finalizarPedido(metodo) {
+      if (carrito.length === 0) return;
+
+      const total = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+      const ticket = {
+        fecha: new Date().toISOString(),
+        productos: [...carrito],
+        total,
+        metodo,
+        codigo: generarCodigo()
+      };
+
+      ventas.push(ticket);
+      localStorage.setItem('ventas-diferentes', JSON.stringify(ventas));
+
+      let texto = `DIFERENTES\n`;
+      texto += `Cafetería & Heladería\n\n`;
+      texto += `Código: ${ticket.codigo}\n`;
+      texto += `Fecha: ${new Date(ticket.fecha).toLocaleString('es-AR')}\n`;
+      texto += `Método: ${metodo}\n`;
+      texto += `\n--- Productos ---\n`;
+      ticket.productos.forEach(p => {
+        texto += `${p.cantidad}x ${p.nombre}\n`;
+      });
+      texto += `\nTotal: $${ticket.total}\n`;
+      texto += `\n¡Gracias por tu compra! 🍦☕`;
+
+      document.getElementById('ticket-texto').textContent = texto;
+      document.getElementById('ticket').classList.remove('hidden');
+
+      carrito = [];
+      renderCarrito();
+      document.getElementById('categoria').value = '';
+      document.getElementById('productos-container').classList.add('hidden');
+      document.getElementById('pago-section').classList.add('hidden');
+    }
+
+    function copiarTicket() {
+      const texto = document.getElementById('ticket-texto').textContent;
+      navigator.clipboard.writeText(texto).then(() => {
+        alert('¡Ticket copiado al portapapeles!');
+      });
+    }
+
+    function cambiarPestana(tab) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tab).classList.remove('hidden');
+      event.target.classList.add('active');
+    }
+
+    // ===== ADMIN =====
+    function accederAdmin() {
+      const pass = document.getElementById('admin-pass').value;
+      if (pass === ADMIN_PASSWORD) {
+        document.getElementById('admin-content').classList.remove('hidden');
+        mostrarSeccion('precios');
+      } else {
+        alert("❌ Contraseña incorrecta");
+      }
+    }
+
+    function salirAdmin() {
+      document.getElementById('admin-pass').value = '';
+      document.getElementById('admin-content').classList.add('hidden');
+      document.getElementById('seccion-precios').classList.add('hidden');
+      document.getElementById('seccion-resumen').classList.add('hidden');
+      document.getElementById('seccion-gestion').classList.add('hidden');
+      document.getElementById('seccion-gastos').classList.add('hidden');
+    }
+
+    function mostrarSeccion(seccion) {
+      document.getElementById('seccion-precios').classList.add('hidden');
+      document.getElementById('seccion-resumen').classList.add('hidden');
+      document.getElementById('seccion-gestion').classList.add('hidden');
+      document.getElementById('seccion-gastos').classList.add('hidden');
+      
+      if (seccion === 'precios') {
+        document.getElementById('seccion-precios').classList.remove('hidden');
+        renderEditorPrecios();
+      } else if (seccion === 'resumen') {
+        document.getElementById('seccion-resumen').classList.remove('hidden');
+        document.getElementById('resumen-content').innerHTML = '<p style="color:var(--text-light);">Selecciona un período para ver el resumen.</p>';
+      } else if (seccion === 'gestion') {
+        document.getElementById('seccion-gestion').classList.remove('hidden');
+        renderGestionProductos();
+      } else if (seccion === 'gastos') {
+        document.getElementById('seccion-gastos').classList.remove('hidden');
+        renderGastos();
+      }
+    }
+
+    function renderEditorPrecios() {
+      let html = '<h4 style="color: var(--text); margin-bottom:10px;">Helados</h4>';
+      productos.helados.forEach((p, i) => {
+        html += `
+          <div class="producto-edit">
+            <span>${p.nombre}</span>
+            <input type="number" value="${p.precio}" data-cat="helados" data-index="${i}" min="0">
+          </div>
+        `;
+      });
+
+      html += '<h4 style="color: var(--text); margin-top:24px; margin-bottom:10px;">Cafetería</h4>';
+      productos.cafeteria.forEach((p, i) => {
+        html += `
+          <div class="producto-edit">
+            <span>${p.nombre}</span>
+            <input type="number" value="${p.precio}" data-cat="cafeteria" data-index="${i}" min="0">
+          </div>
+        `;
+      });
+
+      document.getElementById('lista-productos-edit').innerHTML = html;
+    }
+
+    function guardarPrecios() {
+      document.querySelectorAll('#lista-productos-edit input').forEach(input => {
+        const cat = input.dataset.cat;
+        const idx = parseInt(input.dataset.index);
+        const nuevoPrecio = parseInt(input.value) || 0;
+        if (nuevoPrecio >= 0) {
+          productos[cat][idx].precio = nuevoPrecio;
+        }
+      });
+
+      localStorage.setItem('productos-diferentes', JSON.stringify(productos));
+      alert("✅ Precios actualizados correctamente");
+      if (document.getElementById('categoria').value) {
+        cargarProductos();
+      }
+    }
+
+    // ===== GESTIÓN DE PRODUCTOS =====
+    function renderGestionProductos() {
+      let html = `
+        <h3>Gestionar productos</h3>
+        <label for="gestion-categoria">Categoría</label>
+        <select id="gestion-categoria">
+          <option value="helados">Helados</option>
+          <option value="cafeteria">Cafetería</option>
+        </select>
+
+        <label for="nuevo-nombre">Nombre del producto</label>
+        <input type="text" id="nuevo-nombre" placeholder="Ej: Tiramisú">
+
+        <label for="nuevo-precio">Precio ($)</label>
+        <input type="number" id="nuevo-precio" min="0" placeholder="Ej: 3500">
+
+        <button class="btn-primary" onclick="agregarProductoGestion()" style="margin-top:10px;">Agregar producto</button>
+
+        <div id="lista-productos-gestion" style="margin-top: 20px;"></div>
+      `;
+      document.getElementById('seccion-gestion-contenido').innerHTML = html;
+      actualizarListaGestion();
+      document.getElementById('gestion-categoria').addEventListener('change', actualizarListaGestion);
+    }
+
+    function actualizarListaGestion() {
+      const cat = document.getElementById('gestion-categoria').value;
+      const listaDiv = document.getElementById('lista-productos-gestion');
+      listaDiv.innerHTML = `<h4 style="margin:12px 0;">Productos en "${cat === 'helados' ? 'Helados' : 'Cafetería'}"</h4><ul style="list-style:none; padding:0;">`;
+
+      productos[cat].forEach((p, i) => {
+        listaDiv.innerHTML += `
+          <li style="padding:8px 0; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center;">
+            <span>${p.nombre} – $${p.precio}</span>
+            <button class="btn-eliminar" style="width:24px;height:24px;font-size:12px;" onclick="eliminarProducto('${cat}', ${i})">×</button>
+          </li>
+        `;
+      });
+      listaDiv.innerHTML += '</ul>';
+    }
+
+    function agregarProductoGestion() {
+      const cat = document.getElementById('gestion-categoria').value;
+      const nombre = document.getElementById('nuevo-nombre').value.trim();
+      const precio = parseInt(document.getElementById('nuevo-precio').value);
+
+      if (!nombre) {
+        alert("⚠️ Ingresa un nombre para el producto.");
+        return;
+      }
+      if (isNaN(precio) || precio < 0) {
+        alert("⚠️ Ingresa un precio válido.");
+        return;
+      }
+
+      productos[cat].push({ nombre, precio });
+      localStorage.setItem('productos-diferentes', JSON.stringify(productos));
+      alert(`✅ "${nombre}" agregado a ${cat === 'helados' ? 'Helados' : 'Cafetería'}`);
+      
+      document.getElementById('nuevo-nombre').value = '';
+      document.getElementById('nuevo-precio').value = '';
+      
+      actualizarListaGestion();
+      if (document.getElementById('categoria').value === cat) {
+        cargarProductos();
+      }
+    }
+
+    function eliminarProducto(categoria, index) {
+      const nombre = productos[categoria][index].nombre;
+      if (confirm(`¿Eliminar "${nombre}"? Esta acción no se puede deshacer.`)) {
+        productos[categoria].splice(index, 1);
+        localStorage.setItem('productos-diferentes', JSON.stringify(productos));
+        actualizarListaGestion();
+        if (document.getElementById('categoria').value === categoria) {
+          cargarProductos();
+        }
+      }
+    }
+
+    // ===== REGISTRO DE GASTOS =====
+    function renderGastos() {
+      let html = `
+        <h3>Registrar gasto</h3>
+        <p style="margin-bottom:10px; color:var(--text-light);">Registra compras o egresos del negocio.</p>
+        
+        <label for="gasto-descripcion">Descripción</label>
+        <input type="text" id="gasto-descripcion" placeholder="Ej: Azúcar, Servilletas, Reparación...">
+
+        <label for="gasto-monto">Monto ($)</label>
+        <input type="number" id="gasto-monto" min="0" placeholder="Ej: 5000">
+
+        <button class="btn-primary" onclick="guardarGasto()" style="width:100%; margin-top:10px;">Registrar gasto</button>
+        
+        <div id="lista-gastos" style="margin-top:20px;"></div>
+      `;
+      document.getElementById('seccion-gastos-contenido').innerHTML = html;
+      cargarGastos();
+    }
+
+    function guardarGasto() {
+      const desc = document.getElementById('gasto-descripcion').value.trim();
+      const monto = parseFloat(document.getElementById('gasto-monto').value);
+
+      if (!desc) {
+        alert("⚠️ Ingresa una descripción.");
+        return;
+      }
+      if (isNaN(monto) || monto <= 0) {
+        alert("⚠️ Ingresa un monto válido.");
+        return;
+      }
+
+      const nuevoGasto = {
+        id: Date.now(),
+        descripcion: desc,
+        monto,
+        fecha: new Date().toISOString()
+      };
+
+      gastos.unshift(nuevoGasto);
+      localStorage.setItem('gastos-diferentes', JSON.stringify(gastos));
+      
+      document.getElementById('gasto-descripcion').value = '';
+      document.getElementById('gasto-monto').value = '';
+      cargarGastos();
+      alert("✅ Gasto registrado");
+    }
+
+    function cargarGastos() {
+      const contenedor = document.getElementById('lista-gastos');
+      if (gastos.length === 0) {
+        contenedor.innerHTML = '<p style="color:var(--text-light);">No hay gastos registrados.</p>';
+        return;
+      }
+
+      let html = '<h4 style="margin:12px 0;">Gastos recientes</h4>';
+      gastos.slice(0, 10).forEach(gasto => {
+        const fechaLegible = new Date(gasto.fecha).toLocaleString('es-AR');
+        html += `
+          <div style="background:var(--surface); padding:12px; border-radius:10px; margin-bottom:12px; border:1px solid var(--border);">
+            <div style="display:flex; justify-content:space-between; align-items:start; margin-bottom:8px;">
+              <small style="color:var(--text-light);">${fechaLegible}</small>
+              <button class="btn-eliminar" style="width:24px;height:24px;font-size:12px;" onclick="eliminarGasto(${gasto.id})">×</button>
+            </div>
+            <div><strong>${gasto.descripcion}</strong> – $${gasto.monto}</div>
+          </div>
+        `;
+      });
+      contenedor.innerHTML = html;
+    }
+
+    function eliminarGasto(id) {
+      if (confirm("¿Eliminar este gasto?")) {
+        gastos = gastos.filter(g => g.id !== id);
+        localStorage.setItem('gastos-diferentes', JSON.stringify(gastos));
+        cargarGastos();
+      }
+    }
+
+    // ===== RESUMEN CON GASTOS =====
+    function filtrarVentas(periodo) {
+      const ahora = new Date();
+      return ventas.filter(v => {
+        const fecha = new Date(v.fecha);
+        if (periodo === 'hoy') return fecha.toDateString() === ahora.toDateString();
+        if (periodo === 'semana') {
+          const inicioSemana = new Date(ahora);
+          inicioSemana.setDate(ahora.getDate() - ahora.getDay());
+          inicioSemana.setHours(0,0,0,0);
+          return fecha >= inicioSemana;
+        }
+        if (periodo === 'mes') {
+          return fecha.getMonth() === ahora.getMonth() && fecha.getFullYear() === ahora.getFullYear();
+        }
+        return false;
+      });
+    }
+
+    function filtrarGastos(periodo) {
+      const ahora = new Date();
+      return gastos.filter(g => {
+        const fecha = new Date(g.fecha);
+        if (periodo === 'hoy') return fecha.toDateString() === ahora.toDateString();
+        if (periodo === 'semana') {
+          const inicioSemana = new Date(ahora);
+          inicioSemana.setDate(ahora.getDate() - ahora.getDay());
+          inicioSemana.setHours(0,0,0,0);
+          return fecha >= inicioSemana;
+        }
+        if (periodo === 'mes') {
+          return fecha.getMonth() === ahora.getMonth() && fecha.getFullYear() === ahora.getFullYear();
+        }
+        return false;
+      });
+    }
+
+    function mostrarResumen(periodo) {
+      const ventasFiltradas = filtrarVentas(periodo);
+      const gastosFiltrados = filtrarGastos(periodo);
+
+      let totalVentas = ventasFiltradas.reduce((sum, v) => sum + v.total, 0);
+      let totalGastos = gastosFiltrados.reduce((sum, g) => sum + g.monto, 0);
+      let balance = totalVentas - totalGastos;
+
+      let html = `<h3 style="margin-bottom:12px; color: var(--text);">Resumen - ${periodo.charAt(0).toUpperCase() + periodo.slice(1)}</h3>`;
+
+      // Ventas
+      html += `<h4 style="color: var(--accent-dark); margin:16px 0;">Ingresos (Ventas)</h4>`;
+      if (ventasFiltradas.length === 0) {
+        html += `<p style="color:var(--text-light);">Sin ventas.</p>`;
+      } else {
+        html += '<ul style="list-style: none; padding-left: 0;">';
+        ventasFiltradas.forEach(v => {
+          const fechaCorta = new Date(v.fecha).toLocaleDateString('es-AR');
+          html += `
+            <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+              <div style="display: flex; justify-content: space-between;">
+                <span><strong>${v.codigo}</strong> – ${fechaCorta}</span>
+                <span>$${v.total}</span>
+              </div>
+              <div style="font-size:13px; color:var(--text-light);">${v.metodo}</div>
+            </li>
+          `;
+        });
+        html += '</ul>';
+      }
+      html += `<p style="margin-top:8px; font-weight:600; color:var(--accent-dark);">Total ingresos: $${totalVentas}</p>`;
+
+      // Gastos
+      html += `<h4 style="color: var(--danger); margin:16px 0;">Egresos (Gastos)</h4>`;
+      if (gastosFiltrados.length === 0) {
+        html += `<p style="color:var(--text-light);">Sin gastos.</p>`;
+      } else {
+        html += '<ul style="list-style: none; padding-left: 0;">';
+        gastosFiltrados.forEach(g => {
+          const fechaCorta = new Date(g.fecha).toLocaleDateString('es-AR');
+          html += `
+            <li style="padding: 8px 0; border-bottom: 1px solid var(--border);">
+              <div style="display: flex; justify-content: space-between;">
+                <span>${g.descripcion}</span>
+                <span style="color: var(--danger);">-$${g.monto}</span>
+              </div>
+              <div style="font-size:13px; color:var(--text-light);">${fechaCorta}</div>
+            </li>
+          `;
+        });
+        html += '</ul>';
+      }
+      html += `<p style="margin-top:8px; font-weight:600; color:var(--danger);">Total egresos: $${totalGastos}</p>`;
+
+      // Balance
+      html += `<h4 style="margin:20px 0; color: ${balance >= 0 ? '#2E7D32' : '#C62828'};">Balance: $${balance}</h4>`;
+
+      document.getElementById('resumen-content').innerHTML = html;
+    }
+
+    // ===== VER/OCULTAR CONTRASEÑA =====
+    function togglePasswordVisibility() {
+      const passInput = document.getElementById('admin-pass');
+      const button = document.querySelector('.toggle-password');
+      
+      if (passInput.type === 'password') {
+        passInput.type = 'text';
+        button.textContent = '🙈';
+      } else {
+        passInput.type = 'password';
+        button.textContent = '👁️';
+      }
+    }
+
+    renderCarrito();
+  </script>
+</body>
+</html>
